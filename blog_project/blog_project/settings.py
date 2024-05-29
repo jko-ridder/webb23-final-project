@@ -82,9 +82,9 @@ DATABASES = {
         'NAME': 'django_db',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': 'db',
+        'HOST': 'postgres',
         'PORT': '5432',
-    }
+    }   
 }
 
 # Password validation
