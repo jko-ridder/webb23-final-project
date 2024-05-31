@@ -1,21 +1,36 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: django-blog-deployment
+  name: blog-deployment
+  labels:
+    app: blog
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      app: django
+      app: blog
   template:
     metadata:
       labels:
-        app: django
+        app: blog
     spec:
       containers:
-        - name: django
-          image: django-blog:latest
-          imagePullPolicy: Never
-
-          ports:
-            - containerPort: 8000
+      - name: blog
+        image: blog-project:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blog-service
+spec:
+  selector:
+    app: blog
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+      nodePort: 30000
+  type: NodePort

@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: django-blog-service
+  name: blog-service
 spec:
-  type: NodePort
-  ports:
-  - port: 8000
-    targetPort: 8000
-    nodePort: 30000
   selector:
-    app: django
+    app: blog   # Match labels with your deployment
+  ports:
+    - protocol: TCP
+      port: 8000      # Port on which your Django application is running inside the pod
+      targetPort: 8000  # Port on which your Django application is listening inside the pod
+  type: NodePort      # Expose the service on a port on each node in the cluster
